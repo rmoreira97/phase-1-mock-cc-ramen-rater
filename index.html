@@ -37,19 +37,30 @@
   <!-- New Ramen Form -->
   <form id="new-ramen">
     <h4>Add New Ramen</h4>
-    <label for="name">Name: </label>
-    <input type="text" name="name" id="new-name" />
-    <label for="restaurant">Restaurant: </label>
-    <input type="text" name="restaurant" id="new-restaurant" />
-    <label for="image">Image: </label>
-    <input type="text" name="image" id="new-image" />
-    <label for="rating">Rating: </label>
-    <input type="number" name="rating" id="new-rating" />
+    <label for="new-name">Name: </label>
+    <input type="text" name="new-name" id="new-name" />
+    <label for="new-restaurant">Restaurant: </label>
+    <input type="text" name="new-restaurant" id="new-restaurant" />
+    <label for="new-image">Image: </label>
+    <input type="text" name="new-image" id="new-image" />
+    <label for="new-rating">Rating: </label>
+    <input type="number" name="new-rating" id="new-rating" />
     <label for="new-comment">Comment: </label>
     <textarea name="new-comment" id="new-comment"></textarea>
     <input type="submit" value="Create" />
   </form>
 
+  <form id="edit-ramen">
+    <h4>Update the Featured Ramen</h4>
+    <label for="edit-new-rating">Rating: </label>
+    <input type="number" name="edit-new-rating" id="edit-new-rating" />
+    <label for="edit-new-comment">Comment: </label>
+    <textarea name="edit-new-comment" id="edit-new-comment"></textarea>
+    <input type="submit" value="Update" />
+  <!-- Add the Delete button here -->
+  <button id="delete-button">Delete</button>
+  </form>
+  
 </body>
 
 </html>

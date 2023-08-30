@@ -10,13 +10,23 @@ document.addEventListener("DOMContentLoaded", () => {
   const ramenRating = document.querySelector("#rating-display");
   const ramenComment = document.querySelector("#comment-display");
 
-  // Challenge 1: Fetch and render existing ramen images
+  // Challenge 1: Fetch and render ramen images
   fetch("http://localhost:3000/ramens")
     .then((response) => response.json())
     .then((ramenArray) => {
       ramenArray.forEach((ramenObj) => {
-        renderRamen(ramenObj); // Render each existing ramen in the nav bar
+        renderRamen(ramenObj);
       });
+    });
+
+  // Fetch and display details of the first ramen on page load (Advanced Deliverable 1)
+  fetch("http://localhost:3000/ramens")
+    .then((response) => response.json())
+    .then((ramenArray) => {
+      if (ramenArray.length > 0) {
+        const firstRamen = ramenArray[0];
+        renderRamenDetail(firstRamen); // Display the details in the #ramen-detail section
+      }
     });
 
   // Challenge 2: Click on an image to see details
@@ -38,6 +48,53 @@ document.addEventListener("DOMContentLoaded", () => {
             renderRamenDetail(ramenObj);
           });
       }
+    }
+  });
+
+  // Advanced Deliverable 2: Update rating and comment for a ramen
+  const editRamenForm = document.querySelector("#edit-ramen");
+  editRamenForm.addEventListener("submit", async (event) => {
+    event.preventDefault(); // Prevent reload
+
+    // Get the ID of the ramen currently displayed in the detail section
+    const ramenId = ramenDetail.dataset.id;
+
+    // Update the rating and comment for the displayed ramen
+    const newRating = document.querySelector("#edit-new-rating").value;
+    const newComment = document.querySelector("#edit-new-comment").value;
+
+    // Update the frontend directly without sending a request to the server
+    ramenRating.textContent = newRating;
+    ramenComment.textContent = newComment;
+
+    // Reset the form
+    editRamenForm.reset();
+    console.log("Edit form submitted");
+    console.log("Ramen ID:", ramenId);
+    console.log("New Rating:", newRating);
+    console.log("New Comment:", newComment);
+  });
+
+  // Advanced Deliverable 3: Delete a ramen
+  const deleteButton = document.querySelector("#delete-button");
+  deleteButton.addEventListener("click", async () => {
+    // Get the ID of the ramen currently displayed in the detail section
+    const ramenId = ramenDetail.dataset.id;
+
+    // Send a DELETE request to the server to remove the ramen
+    try {
+      await fetch(`http://localhost:3000/ramens/${ramenId}`, {
+        method: "DELETE",
+      });
+
+      // Remove the ramen from the menu and detail sections
+      const ramenContainer = document.querySelector(`[data-id="${ramenId}"]`);
+      if (ramenContainer) {
+        ramenContainer.remove();
+      }
+      clearRamenDetail();
+    } catch (error) {
+      console.error("Error deleting ramen:", error);
     }
   });
 
@@ -100,3 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ramenComment.textContent = "";
   }
 });
+
+
+// Done 
+
